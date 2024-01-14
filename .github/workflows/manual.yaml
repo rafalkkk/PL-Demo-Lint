@@ -34,10 +34,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check if the job should fail
-        if: github.event.inputs.shouldfail == "true"
+        if: github.event.inputs.shouldfail == 'true'
         run: echo "The job should fail"
       - name: Check if the job should be successfull
-        if: github.event.inputs.shouldfail != "true"
+        if: github.event.inputs.shouldfail != 'true'
         run: echo "The job should end successfully"
       - name: Test input parameters 
         run: |
