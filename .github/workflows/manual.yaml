@@ -4,7 +4,7 @@ on:
       shouldfail:
         description: "Should the job fail"
         required: true
-        default: true
+        default: false
         type: boolean
       logLevel:
         description: 'Log level'
