@@ -1,0 +1,45 @@
+on:
+  workflow_dispatch:
+    inputs:
+      shouldfail:
+        description: "Should the job fail"
+        required: true
+        default: 'no'
+        type: string
+
+env:
+  WORKFLOW_ENV: workflow
+
+jobs:
+  log-the-inputs:
+    env:
+      JOB_ENV: job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if the job should fail
+        if: github.event.inputs.shouldfail == 'yes' 
+        run: echo "The job should fail"
+      - name: Check if the job should be successfull
+        if: github.event.inputs.shouldfail == 'no'
+        run: echo 'The job should end successfully'
+      - name: Test input parameters 
+        run: |
+          echo "Log level: $LEVEL"
+          echo "Tags: $TAGS"
+          echo "Environment: $ENVIRONMENT"
+          echo "WORKFLOW_ENV: $WORKFLOW_ENV"
+          echo "JOB_ENV: $JOB_ENV"
+        env:
+          LEVEL: ${{ inputs.shouldfail }}
+          
+      - name: win or fail
+        env:
+          RESULT: ${{ github.event.inputs.shouldfail == 'yes' }}
+        run: |
+          echo "RETURNING RESULT"
+          if [ $RESULT == 'true' ]; then
+            exit 1000
+          fi
+      - name: Next step
+        run: echo "This is a next step"
+        
