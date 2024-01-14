@@ -4,8 +4,8 @@ on:
       shouldfail:
         description: "Should the job fail"
         required: true
-        default: false
-        type: boolean
+        default: 'no'
+        type: string
       logLevel:
         description: 'Log level'
         required: true
@@ -34,10 +34,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check if the job should fail
-        if: github.event.inputs.shouldfail 
+        if: github.event.inputs.shouldfail == 'yes' 
         run: echo "The job should fail"
       - name: Check if the job should be successfull
-        if: ${{ !(github.event.inputs.shouldfail) }}
+        if: github.event.inputs.shouldfail == 'no'
         run: echo 'The job should end successfully'
       - name: Test input parameters 
         run: |
