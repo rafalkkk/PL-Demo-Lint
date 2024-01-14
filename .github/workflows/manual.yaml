@@ -3,9 +3,9 @@ on:
     inputs:
       shouldfail:
         description: "Should the job fail"
-        required: true
-        default: true
-        type: boolean
+        required: "true"
+        default: "true"
+        type: string
       logLevel:
         description: 'Log level'
         required: true
