@@ -37,8 +37,8 @@ jobs:
         if: github.event.inputs.shouldfail 
         run: echo "The job should fail"
       - name: Check if the job should be successfull
-        if: !github.event.inputs.shouldfail
-        run: echo "The job should end successfully"
+        if: !(github.event.inputs.shouldfail)
+        run: echo 'The job should end successfully'
       - name: Test input parameters 
         run: |
           echo "Log level: $LEVEL"
