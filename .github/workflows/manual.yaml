@@ -1,6 +1,11 @@
 on:
   workflow_dispatch:
     inputs:
+      should-fail:
+        description: "Should the job fail"
+        required: true
+        default: false
+        type: boolean
       logLevel:
         description: 'Log level'
         required: true
@@ -28,6 +33,12 @@ jobs:
       JOB_ENV: job
     runs-on: ubuntu-latest
     steps:
+      - name: Check if the job should fail
+        if: github.event.inputs.should-fail = =true
+        run: echo "The job should fail"
+      - name: Check if the job should be successfull
+        if: github.event.inputs.should-fail
+        run: echo "The job should end
       - name: Test input parameters 
         run: |
           echo "Log level: $LEVEL"
